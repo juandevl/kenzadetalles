@@ -1,0 +1,151 @@
+/* 72 dpi (web) = 595 X 842 pixels
+300 dpi (print) = 2480 X 3508 pixels (This is "A4" as I know it, i.e. "210mm X 297mm @ 300 dpi") */
+
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+body{
+  background-color: rgb(229, 226, 226);
+  padding: 20px;
+}
+header {
+  width: 100%;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content:flex-start;
+}
+header img {
+  width: 80px;
+  height: auto;
+}
+header h2 {
+  font-size: 16px;
+  margin: 0 auto;
+}
+
+table{
+  width: 100%;
+  height: auto;
+}
+table th {
+  background-color: #eee;
+  font-size: 13px;
+}
+table td {
+  background-color: #fff;
+  font-size: 13px;
+}
+
+section {
+  width: 100%;
+  height: auto;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.articulo > h3{
+  font-size: 15px;
+}
+.articulo {
+  break-inside: avoid;
+}
+
+#main-container {
+  width: calc(680px - 40px);
+  min-height: calc(1035px - 30px);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff;
+  box-shadow: 0 0 10px rgba(0,0,0, 0.5);
+  box-sizing: border-box;
+}
+
+/* #calculoTotal {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items:last baseline;
+
+  box-sizing: border-box;
+  padding-right: 150px;
+  width: 100%;
+}
+#calculoTotal p {
+  margin: 5px;
+  font-size: 12px;
+  font-weight: 700;
+} */
+#calculoTotal table {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+#calculoTotal table  th, #calculoTotal table td{
+  width: 140px;
+  margin: 5px 15px;
+  padding: 5px 15px;
+}
+
+#form-datos {
+  position: absolute;
+
+  top: 40px;
+  left: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  width: 360px;
+  height: 600px
+}
+
+#form-datos input, #form-datos select, #form-datos button {
+  font-family: inherit;
+  font-size: 100%;
+  align-self: flex-start;
+
+  width: 100%;
+  padding: 3px;
+  border-radius: 5px;
+  border: solid 1px #696a6a;
+}
+#form-datos input:focus , select:focus {
+  outline: #38b958;
+  border: solid 1px #38b958;
+  box-shadow: 0 0 5px #73eb91;
+}
+#cargarDatos {
+  background-color: #38b958;
+  border: solid 1px #38b958 !important;
+
+  color: #f2efef;
+  font-weight: bolder;
+  text-shadow: 0 0 2px #1f2020;
+
+  padding: 6px !important;
+}
+#cargarDatos:hover{
+  background-color: #73eb91;
+  
+}
+
+#generar-pdf{
+  position: absolute;
+  border-radius: 10px;
+  border: solid 1px #38b958;
+  color: #fff;
+  text-shadow: 0 0 2px #1f2020;
+  background-color: #38b958;
+  font-size: 16px;
+  padding: 10px;
+  top: 40px;
+  right: 200px;
+}
+#generar-pdf:hover {
+  background-color: #73eb91;
+
+}

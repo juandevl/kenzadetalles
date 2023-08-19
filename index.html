@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.3/html2pdf.bundle.min.js"
+      integrity="sha512-YcsIPGdhPK4P/uRW6/sruonlYj+Q7UHWeKfTAkBW+g83NKM+jMJFJ4iAPfSnVp7BKD4dKMHmVSvICUbE/V1sSw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <title>Detalles de pedidos</title>
+  </head>
+  <body>
+    <div class="page">
+      <main id="main-container">
+        <div id="content">
+          <header id="header">
+            <img src="images/logokenza.png" alt="Logo Kenza" />
+          </header>
+          <section id="productos"></section>
+          <div id="calculoTotal">
+            <table>
+              <tr>
+                <th>Seña</th>
+                <th>Envío</th>
+                <th>Subtotal</th>
+                <th>Total</th>
+              </tr>
+              <tr>
+                <td class="senia"><span></span></td>
+                <td class="envio"><span></span></td>
+                <td class="suma-subtotal"><span></span></td>
+                <td class="total"><span></span></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+    <br /><br />
+    <!-- Formulario de carga de producto a lista -->
+    <form id="form-datos" method="post" action="">
+      <h2>Cargar producto a lista</h2>
+
+      <label for="cliente">Cliente</label>
+      <input type="text" name="cliente" id="cliente" />
+      <label for="unidades">Unidades</label>
+      <input
+        type="number"
+        name="unidades"
+        id="unidades"
+        min="1"
+        step="1"
+        required
+      />
+      <label for="producto">Producto</label>
+      <input type="text" name="producto" id="producto" required />
+      <label for="categoria">Categoria</label>
+      <select name="categoria" id="categoria" required>
+        <option value="simples">Simples</option>
+        <option value="lineales">Lineales</option>
+        <option value="capuchones">Capuchones</option>
+        <option value="pulseras">Pulseras</option>
+        <option value="aritos">Aritos</option>
+        <option value="cadenas">Cadenas</option>
+        <option value="medallones">Medallones</option>
+        <option value="anillos">Anillos</option>
+      </select>
+      <label for="precio">Precio</label>
+      <input
+        type="number"
+        name="precio"
+        id="precio"
+        min="0"
+        step="0.01"
+        required
+      />
+      <label for="senia">Seña</label>
+      <input type="number" name="senia" id="senia" min="0" step="0.01" />
+      <label for="envio">Costo de envio</label>
+      <input type="number" name="envio" id="envio" min="0" step="0.01" />
+
+      <button type="submit" id="cargarDatos">Cargar datos</button>
+    </form>
+    <button id="generar-pdf" download="">Generar PDF</button>
+    <script
+      type="module"
+      referrerpolicy="no-referrer"
+      crossorigin="anonymous"
+      src="./main.js"
+    ></script>
+  </body>
+</html>
