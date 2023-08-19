@@ -37,10 +37,10 @@
                 <th>Total</th>
               </tr>
               <tr>
-                <td class="senia"><span></span></td>
-                <td class="envio"><span></span></td>
-                <td class="suma-subtotal"><span></span></td>
-                <td class="total"><span></span></td>
+                <td class="senia"></td>
+                <td class="envio"></td>
+                <td class="suma-subtotal"></td>
+                <td class="total"></td>
               </tr>
             </table>
           </div>
@@ -55,18 +55,11 @@
       <label for="cliente">Cliente</label>
       <input type="text" name="cliente" id="cliente" />
       <label for="unidades">Unidades</label>
-      <input
-        type="number"
-        name="unidades"
-        id="unidades"
-        min="1"
-        step="1"
-        required
-      />
+      <input type="number" name="unidades" id="unidades" min="1" step="1" />
       <label for="producto">Producto</label>
-      <input type="text" name="producto" id="producto" required />
+      <input type="text" name="producto" id="producto" />
       <label for="categoria">Categoria</label>
-      <select name="categoria" id="categoria" required>
+      <select name="categoria" id="categoria">
         <option value="simples">Simples</option>
         <option value="lineales">Lineales</option>
         <option value="capuchones">Capuchones</option>
@@ -75,16 +68,10 @@
         <option value="cadenas">Cadenas</option>
         <option value="medallones">Medallones</option>
         <option value="anillos">Anillos</option>
+        <option value="envio">Envio</option>
       </select>
       <label for="precio">Precio</label>
-      <input
-        type="number"
-        name="precio"
-        id="precio"
-        min="0"
-        step="0.01"
-        required
-      />
+      <input type="number" name="precio" id="precio" min="0" step="0.01" />
       <label for="senia">Seña</label>
       <input type="number" name="senia" id="senia" min="0" step="0.01" />
       <label for="envio">Costo de envio</label>
@@ -92,6 +79,13 @@
 
       <button type="submit" id="cargarDatos">Cargar datos</button>
     </form>
+
+    <!-- <form id="form-envio" method="post" action="">
+      <label for="envio">Costo de envio</label>
+      <input type="number" name="envio" id="envio" min="0" step="0.01" />
+
+      <button type="submit" id="cargarEnvio">Cargar Envio</button>
+    </form> -->
     <button id="generar-pdf" download="">Generar PDF</button>
     <script
       type="module"

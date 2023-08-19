@@ -63,19 +63,6 @@ document.addEventListener("submit", (e) => {
       seniaForm = document.querySelector("#senia");
     nombre = document.querySelector("#cliente").value;
 
-    //Comprobamos que los input no esten vacios
-    if (
-      !prodForm &&
-      !precioForm &&
-      !unidadesForm &&
-      !categoriaForm &&
-      !envioForm &&
-      !seniaForm
-    ) {
-      console.log("Valores vacios");
-      return;
-    }
-
     //Obtenemos los valores de los input ingresados
     const $prodValue = prodForm.value,
       $precioValue = parseFloat(precioForm.value),
@@ -84,18 +71,64 @@ document.addEventListener("submit", (e) => {
       $envioValue = parseFloat(envioForm.value),
       $seniaValue = parseFloat(seniaForm.value);
 
-    //Valores de salida
+    //Comprobamos que los input no esten vacios
+    if (
+      !$prodValue &&
+      !$precioValue &&
+      !$unidadesValue &&
+      !$categoriaValue &&
+      !$envioValue &&
+      !$seniaValue
+    ) {
+      console.log("Valores vacios");
+      return;
+    }
 
-    const $sumaSubtotal = document.querySelector(".suma-subtotal > span");
-    const $senia = document.querySelector(".senia > span");
-    const $total = document.querySelector(".total > span");
-    const $costoEnvio = document.querySelector(".envio > span");
+    //Elementos del dom para cargar los datos
+
+    const $sumaSubtotal = document.querySelector(".suma-subtotal");
+    const $senia = document.querySelector(".senia");
+    const $total = document.querySelector(".total");
+    const $costoEnvio = document.querySelector(".envio");
 
     //Crear fragmento html
     const fragment = document.createDocumentFragment();
 
-    //Creamos tabla de categoria introducida si no existe
-    if (!document.querySelector(`#${$categoriaValue}`)) {
+    //Agregamos nombre de cliente al encabezado
+    if (!document.querySelector("#header > h2")) {
+      const fragment = document.createDocumentFragment();
+      const nombreCliente = document.createElement("h2");
+      const clienteForm = document.querySelector("#cliente");
+
+      nombreCliente.textContent = clienteForm.value;
+      fragment.appendChild(nombreCliente);
+
+      document.querySelector("#header").appendChild(fragment);
+
+      clienteForm.setAttribute("value", clienteForm.value); //Asignamos el nombre en input cliente
+      clienteForm.setAttribute("disabled", true); // desactiva input nombre cliente
+      clienteForm.style.display = "none";
+      //Seleccionamos etiqueta label para cliente
+      document.querySelector("label[for=cliente]").style.display = "none";
+
+      // envioForm.setAttribute("value", $envioValue);
+      // envioForm.setAttribute("disabled", true); // desactiva input costo envio
+      // envioForm.style.display = "none";
+      //Seleccionamos etiqueta label para envio
+      // document.querySelector("label[for=envio]").style.display = "none";
+
+      seniaForm.setAttribute("value", $seniaValue); // Asigna el valor de la senia
+      seniaForm.setAttribute("disabled", true); // desactiva input senia
+      seniaForm.style.display = "none";
+      //Seleccionamos etiqueta label para senia
+      document.querySelector("label[for=senia]").style.display = "none";
+    }
+
+    //Creamos tabla de categoria introducida si no existe y es distinta de envio
+    if (
+      !document.querySelector(`#${$categoriaValue}`) &&
+      $categoriaValue != "envio"
+    ) {
       const section = document.querySelector("#productos");
       //Creamos el elemento article
       const element = document.createElement("article");
@@ -126,70 +159,51 @@ document.addEventListener("submit", (e) => {
       section.appendChild(element);
     }
 
-    // Crear fila de datos
+    //Cargamos datos a la tabla introducida en categoria
 
-    const dataRow = document.createElement("tr"),
-      dataProducto = document.createElement("td"),
-      dataUnidades = document.createElement("td"),
-      dataPrecio = document.createElement("td"),
-      dataSubtotal = document.createElement("td");
+    if ($categoriaValue && $categoriaValue != "envio") {
+      if (!$prodValue || !$unidadesValue || !$precioValue || !$costoEnvio) {
+        alert("Valores introducidos invalidos.");
+        return;
+      } else {
+        // Crear fila de datos
 
-    dataProducto.textContent = $prodValue; //Datos de producto ingresado en el form
-    dataUnidades.textContent = `${$unidadesValue} u.`; //Datos de unidades ingresados en el form
-    dataPrecio.textContent = `$ ${$precioValue}`; //Precio ingresado en el form
-    dataSubtotal.textContent = `$ ${$unidadesValue * $precioValue}.-`; // Calculo de subtotal para ingresarlo en la tabla
+        const dataRow = document.createElement("tr"),
+          dataProducto = document.createElement("td"),
+          dataUnidades = document.createElement("td"),
+          dataPrecio = document.createElement("td"),
+          dataSubtotal = document.createElement("td");
 
-    //Agrego atributos para buscarlos facilmente
-    dataSubtotal.setAttribute("value", $unidadesValue * $precioValue);
-    dataSubtotal.setAttribute("class", "subtotal");
+        dataProducto.textContent = $prodValue; //Datos de producto ingresado en el form
+        dataUnidades.textContent = `${$unidadesValue} u.`; //Datos de unidades ingresados en el form
+        dataPrecio.textContent = `$ ${$precioValue}`; //Precio ingresado en el form
+        dataSubtotal.textContent = `$ ${$unidadesValue * $precioValue}.-`; // Calculo de subtotal para ingresarlo en la tabla
 
-    //Agregamos los datos a la fila de la tabla
+        //Agrego atributos para buscarlos facilmente
+        dataSubtotal.setAttribute("value", $unidadesValue * $precioValue);
+        dataSubtotal.setAttribute("class", "subtotal");
 
-    dataRow.appendChild(dataProducto);
-    dataRow.appendChild(dataUnidades);
-    dataRow.appendChild(dataPrecio);
-    dataRow.appendChild(dataSubtotal);
+        //Agregamos los datos a la fila de la tabla
 
-    //Agregamos la fila al fragmento
-    fragment.appendChild(dataRow);
+        dataRow.appendChild(dataProducto);
+        dataRow.appendChild(dataUnidades);
+        dataRow.appendChild(dataPrecio);
+        dataRow.appendChild(dataSubtotal);
 
-    //Agrergamos fragmento a la tabla
-    const tabla = document.querySelector(`#${$categoriaValue} > table`);
-    tabla.appendChild(fragment);
+        //Agregamos la fila al fragmento
+        fragment.appendChild(dataRow);
 
-    //Agregamos nombre de cliente al encabezado
-    if (!document.querySelector("#header > h2")) {
-      const fragment = document.createDocumentFragment();
-      const nombreCliente = document.createElement("h2");
-      const clienteForm = document.querySelector("#cliente");
-
-      nombreCliente.textContent = clienteForm.value;
-      fragment.appendChild(nombreCliente);
-
-      document.querySelector("#header").appendChild(fragment);
-
-      clienteForm.setAttribute("value", clienteForm.value); //Asignamos el nombre en input cliente
-      clienteForm.setAttribute("disabled", true); // desactiva input nombre cliente
-      clienteForm.style.display = "none";
-      //Seleccionamos etiqueta label para cliente
-      document.querySelector("label[for=cliente]").style.display = "none";
-      envioForm.setAttribute("value", $envioValue);
-      envioForm.setAttribute("disabled", true); // desactiva input costo envio
-      envioForm.style.display = "none";
-      //Seleccionamos etiqueta label para envio
-      document.querySelector("label[for=envio]").style.display = "none";
-      seniaForm.setAttribute("value", $seniaValue); // Asigna el valor de la senia
-      seniaForm.setAttribute("disabled", true); // desactiva input senia
-      seniaForm.style.display = "none";
-      //Seleccionamos etiqueta label para senia
-      document.querySelector("label[for=senia]").style.display = "none";
+        //Agrergamos fragmento a la tabla
+        const tabla = document.querySelector(`#${$categoriaValue} > table`);
+        tabla.appendChild(fragment);
+      }
     }
 
+    //Verificamos si existen elementos con la clase subtotal
     //Sumamos todos los valores de subtotal
     // Y lo agregamos a la tabla
-
-    if (dataSubtotal.classList.contains("subtotal")) {
-      const datos = document.querySelectorAll(".subtotal");
+    const datos = document.querySelectorAll(".subtotal");
+    if (datos) {
       const values = [];
       datos.forEach((dato) => {
         values.push(parseFloat(dato.getAttribute("value")));
